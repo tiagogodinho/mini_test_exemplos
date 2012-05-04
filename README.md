@@ -1,16 +1,18 @@
 # Exemplos usando MiniTest
 
-Esse pequeno tutorial pretende auxiliar na criação de uma aplicação com MiniTest, sem Rails, nos moldes do código feito no [Coding Dojo](https://github.com/gurusorocaba/dojos/tree/master/celular).
+Nesse mini-tutorial pretendo mostrar a criação de uma aplicação com MiniTest, sem Rails, igual ao código feito no [Coding Dojo](https://github.com/gurusorocaba/dojos/tree/master/celular). Para cada passo eu criei uma pasta com o código funcionando até aquele ponto. Em caso de dúvidas ou sugestões crie uma [issue](https://github.com/tiagogodinho/mini_test_exemplos/issues) aqui no GitHub que eu responderei.
 
-## 1º Passo - Instalar a gem e criar a estrutura inicial
+## 1º Passo - Criar a estrutura inicial
 
-Primeiro precisamos instalar a gem `minitest`:
+Primeiro precisamos instalar a gem:
 
 ``` console
 gem install minitest
 ```
 
-Agora crie um arquivo chamado `calculator.rb` com o seguinte conteúdo:
+Agora vamos criar um arquivo chamado `calculator.rb` com o seguinte conteúdo:
+
+`calculator.rb`
 
 ``` ruby
 require 'minitest/autorun'
@@ -28,17 +30,17 @@ class TestCalculator < MiniTest::Unit::TestCase
 end
 ```
 
-Depois é só salvar o arquivo e executar no terminal:
+Depois disso podemos salvar o arquivo e executá-lo no terminal:
 
 ``` console
 ruby calculator.rb
 ```
 
-Nesse primeiro passo deixamos tudo num arquivo para simplificar. Se fosse em uma aplicação real, conforme o código fosse crescendo a aplicação ficaria cada vez mais difícil de manter. Então vamos para a próxima etapa.
+Nesse primeiro passo deixamos tudo num arquivo só para simplificar. Se fosse em uma aplicação real, conforme o código fosse crescendo a aplicação ficaria cada vez mais difícil de manter. Então vamos para a próxima etapa.
 
 ## 2º Passo - Separar o teste do código a ser testado
 
-Crie um arquivo chamado `test_calculator.rb` e copie a classe `TestCalculator` para esse arquivo. Os arquivos ficarão assim:
+Vamos criar um arquivo chamado `test_calculator.rb` e copiar a classe `TestCalculator` para esse arquivo. Os arquivos ficarão assim:
 
 `calculator.rb`
 
@@ -75,7 +77,7 @@ Com o teste separado do código a aplicação fica mais limpa e fácil de entend
 
 Crie uma pasta chamada `lib` e outra chamada `test`. Na `lib` jogue o arquivo `calculator.rb` e na `test` o `test_calculator.rb`. Como o endereço do arquivo `calculator.rb` mudou, precisamos mudar o require também.
 
-`lib/test_calculator.rb`
+`test/test_calculator.rb`
 
 ``` ruby
 require 'minitest/autorun'
@@ -92,7 +94,7 @@ ruby calculator.rb
 
 ## 4º Passo - Criando uma Rake Task
 
-Rodar os testes de um arquivo é fácil, o problema é quando temos muitos arquivos. A solução é criar uma tarefa que rode todos seus testes com um só comando. Para isso utilizamos a gem Rake:
+Rodar os testes para um arquivo é fácil, o problema é quando temos vários deles. A solução é criar uma tarefa que rode todos seus testes com um só comando. Para isso utilizamos a gem **Rake**:
 
 ``` console
 gem install rake
@@ -118,13 +120,13 @@ rake test
 
 ## 5º Passo - Rodando os testes automaticamente
 
-Todo vez que você altera um arquivo precisa ir na linha de comando, rodar os testes, esperar o resultado e só aí voltar para o editor de texto e corrigir se for preciso. Isso é muito trabalhoso e improdutivo. Por isso surgiram diversas gems que fazem esse trabalho sujo por nós. Nesse exemplo vou usar a gem `guard-minitest`. Se quiser saber mais sobre o **guard** existe um episódio do [RailsCasts](http://railscasts.com/episodes/264-guard) que explica bem isso.
+Todo vez que você altera um arquivo precisa ir na linha de comando, rodar os testes, esperar o resultado e só aí voltar para o editor de texto e continuar o trabalho. Isso é muito chato e improdutivo. Por isso surgiram diversas gems que fazem esse trabalho ingrato por nós. Nesse exemplo vou usar a gem `guard-minitest`. Se quiser saber mais sobre o **Guard** existe um episódio do [RailsCasts](http://railscasts.com/episodes/264-guard) que explica bem isso.
 
 ``` console
 gem install guard-minitest
 ```
 
-Depois de instalar a gem precisamos criar um arquivo chamado `Guardfile` para configurarmos o Guard.
+Depois de instalar a gem precisamos criar um arquivo chamado `Guardfile` para configurarmos o **Guard**.
 
 `Guardfile`
 
@@ -136,7 +138,7 @@ guard 'minitest' do
 end
 ```
 
-Agora precisamos colocar o **guard** para rodar nossos testes:
+Agora precisamos colocar o **Guard** para rodar:
 
 ``` console
 guard
@@ -144,26 +146,26 @@ guard
 
 ## 6º Passo - Deixando tudo mais bonito
 
-Obaaa. Agora os testes rodam automaticamente. Só que quando eu estou no editor de texto tenho que ficar voltando para o terminal para ver o resultado dos testes. Agora podemos usar os notificadores para nos dizer se os testes passaram ou não. Esse notificadores dependem do sistema operacional. No MacOS X temos o Growl e no Linux o Libnotify que funcionam super bem. Exitem outras gems na [documentação do Guard](https://github.com/guard/guard).
+Obaaaaa. Agora os testes rodam automaticamente quando eu mudo um arquivo. Só que quando eu estou no editor de texto tenho que ficar voltando para o terminal para ver o resultado dos testes. Agora podemos usar os notificadores para nos avisar se os testes passaram ou não. Esse notificadores dependem do sistema operacional. No **Mac OS X** temos o Growl e no **Linux** o Libnotify. Exitem outras gems para notificações na [documentação do Guard](https://github.com/guard/guard).
 
-Para MacOS X:
+Para **Mac OS X**:
 
 ``` console
 gem install guard-minitest
 ```
-Para Linux:
+Para **Linux**:
 
 ``` console
 gem install libnotify
 ```
 
-Agora desligue o Guard (Ctrl-C ou Command-C) e inicie novamente:
+Agora desligue o **Guard** (Ctrl-C ou Command-C) e reinicie-o:
 
 ``` console
 guard
 ```
 
-Agora você será avisado toda vez que seus testes rodarem :)
+Agora você será avisado toda vez que seus testes executarem :)
 
 Outra coisa que você pode fazer para facilitar a visualização dos testes é colorir o resultado. A gem `turn` faz esse serviço muito bem:
 
@@ -171,9 +173,9 @@ Outra coisa que você pode fazer para facilitar a visualização dos testes é c
 gem install turn
 ```
 
-Só precisamos fazer o teste carregar o `turn` agora.
+Só precisamos nosso código carregar a gem.
 
-`lib/test_calculator.rb`
+`test/test_calculator.rb`
 
 ``` ruby
 require 'minitest/autorun'
@@ -185,7 +187,7 @@ require File.expand_path('../../lib/calculator', __FILE__) # Carrega o arquivo c
 
 ## 7º Passo - Não se repita
 
-Daqui a uns meses você terá 20 classes e 20 arquivos de teste. No topo de cada arquivo de testes você faz o require do minitest, do turn e da classe que será testada. Se algum dia precisar mudar alguma coisa você terá que sair caçando no código e alterando tudo. Seria muito mais fácil se todo esse código que se repete muito estivesse em um lugar único.
+Vamos supor que daqui a uns dias você tenha 20 classes e 20 arquivos de teste. No topo de cada arquivo de testes você faz o require do minitest, do turn e da classe que será testada. Se algum dia você precisar mudar alguma coisa, terá que sair caçando no código e alterando. Seria muito mais fácil se esse código repetido estivesse em um só lugar.
 
 Vamos criar um arquivo na pasta `test` chamado `test_helper.rb` e copiar esses requires pra lá.
 
@@ -211,8 +213,8 @@ Nesse ponto chegamos bem perto do [código feito no Coding Dojo](https://github.
 
 # Conclusão
 
-Nunca tinha mexido com o MiniTest até o Coding Dojo. Sempre trabalhei com RSpec e poucas vezes mexi com TestUnit, embora ele seja padrão no Rails e em muitos projetos importantes. Gostei muito do MiniTest e se eu precisasse criar uma gem hoje eu usaria ele ao invés do RSpec. O MiniTest tem até uma sintaxe alternativa que é igual a do RSpec.
+Nunca tinha mexido com o MiniTest até o Coding Dojo. Sempre trabalhei com RSpec e poucas vezes mexi com TestUnit, embora ele seja padrão no Rails e em muitos outros projetos importantes. Gostei muito do MiniTest e se eu precisasse criar uma gem hoje eu usaria ele ao invés do RSpec. O MiniTest tem até uma sintaxe alternativa que é igual a do RSpec.
 
-Acho que ficamos muito mal acostumados com o Rails e esquecemos de como é criar um projeto "crú". Não sei quase nada sobre 'require', File.expand_path, e outros porque o Rails sempre fez isso por mim.
+Acho que ficamos muito mal acostumados com o Rails e esquecemos de como é criar um projeto "crú". Não sei quase nada sobre *require*, *File.expand_path* e afins porque o Rails sempre fez isso por mim.
 
 Espero que gostem desse mini-tutorial.
